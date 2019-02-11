@@ -2,10 +2,8 @@ package ru.tinkoff.fintech.calc.core;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
+import ru.tinkoff.fintech.calc.core.impl.CalcImpl;
 
 public class CalcImplTest {
 
@@ -18,25 +16,25 @@ public class CalcImplTest {
 
 
     @Test
-    public void calc() {
+    public void mul() {
         calc.calculate("5*-10");
         Assert.assertEquals("-50", calc.getResult());
     }
 
     @Test
-    public void calc1() {
+    public void mul1() {
         calc.calculate("-5*-10");
         Assert.assertEquals("50", calc.getResult());
     }
 
     @Test
-    public void calc2() {
+    public void mul2() {
         calc.calculate("-5*10");
         Assert.assertEquals("-50", calc.getResult());
     }
 
     @Test
-    public void calc3() {
+    public void mul3() {
         calc.calculate("5*10");
         Assert.assertEquals("50", calc.getResult());
     }
@@ -48,22 +46,65 @@ public class CalcImplTest {
     }
 
     @Test
-    public void div2() {
+    public void div1() {
         calc.calculate("10/-5");
         Assert.assertEquals("-2", calc.getResult());
     }
 
     @Test
-    public void div3() {
+    public void div2() {
         calc.calculate("-10/-2");
         Assert.assertEquals("5", calc.getResult());
     }
 
     @Test
-    public void div4() {
+    public void div3() {
         calc.calculate("-10/5");
         Assert.assertEquals("-2", calc.getResult());
     }
+
+    @Test
+    public void sum() {
+        calc.calculate("-10+5");
+        Assert.assertEquals("-5", calc.getResult());
+    }
+
+    @Test
+    public void sum1() {
+        calc.calculate("-10+-5");
+        Assert.assertEquals("-15", calc.getResult());
+    }
+
+    @Test
+    public void sum2() {
+        calc.calculate("10+5");
+        Assert.assertEquals("15", calc.getResult());
+    }
+
+    @Test
+    public void sum3() {
+        calc.calculate("10+-5");
+        Assert.assertEquals("5", calc.getResult());
+    }
+
+    @Test
+    public void sub() {
+        calc.calculate("10-5");
+        Assert.assertEquals("5", calc.getResult());
+    }
+
+    @Test
+    public void sub1() {
+        calc.calculate("10--5");
+        Assert.assertEquals("15", calc.getResult());
+    }
+
+    @Test
+    public void sub2() {
+        calc.calculate("-10-5");
+        Assert.assertEquals("-15", calc.getResult());
+    }
+
 
     @Test
     public void calculate() {
