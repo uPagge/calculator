@@ -1,34 +1,35 @@
-package ru.tinkoff.fintech.calc.core;
+package ru.tinkoff.fintech.calc.core.impl;
 
-import jdk.nashorn.internal.ir.IfNode;
+import ru.tinkoff.fintech.calc.core.Operation;
 
-import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class OperatinImpl implements Operation {
+public class OperationImpl implements Operation {
 
     private StringBuffer result;
 
     @Override
-    public String oper(Integer a, Integer b, char oper) {
+    public String mathOperation(Integer a, Integer b, char oper) {
         String result = "";
-        if (oper == '+') {
-            result = String.valueOf(a + b);
-        }
-        if (oper == '-') {
-            result = String.valueOf(a - b);
-        }
-        if (oper == '*') {
-            result = String.valueOf(a * b);
-        }
-        if (oper == '/') {
-            result = String.valueOf(a / b);
+        switch (oper) {
+            case '+':
+                result = String.valueOf(a + b);
+                break;
+            case '-':
+                result = String.valueOf(a - b);
+                break;
+            case '*':
+                result = String.valueOf(a*b);
+                break;
+            case '/':
+                result = String.valueOf(a / b);
+                break;
         }
         return result;
     }
 
-    private String govnocod(String exam, Pattern pattern) {
+    private String calculationOperands(String exam, Pattern pattern) {
         result = new StringBuffer();
         Matcher m = pattern.matcher(exam);
         while (m.find()) {
@@ -49,22 +50,22 @@ public class OperatinImpl implements Operation {
                 b *= (-1);
             }
             tempExam = tempExam.replaceFirst("(^-\\d+|\\d+)", "");
-            m.appendReplacement(result, oper(a, b, tempExam.charAt(0)));
+            m.appendReplacement(result, mathOperation(a, b, tempExam.charAt(0)));
         }
         m.appendTail(result);
         m = pattern.matcher(result.toString());
         if (m.find()) {
-            govnocod(result.toString(), pattern);
+            calculationOperands(result.toString(), pattern);
         }
         return result.toString();
     }
 
 
     @Override
-    public String parse(String exam) {
+    public String calculationExample(String exam) {
         exam = exam.replace(")", "").replace("(", "");
-        String result = govnocod(exam, Pattern.compile("(^-\\d+|\\d+)[*|/](-\\d+|\\d+)"));
-        result = govnocod(result, Pattern.compile("(^-\\d+|\\d+)[+|-](-\\d+|\\d+)"));
+        String result = calculationOperands(exam, Pattern.compile("(^-\\d+|\\d+)[*|/](-\\d+|\\d+)"));
+        result = calculationOperands(result, Pattern.compile("(^-\\d+|\\d+)[-|+](-\\d+|\\d+)"));
         return result;
     }
 
