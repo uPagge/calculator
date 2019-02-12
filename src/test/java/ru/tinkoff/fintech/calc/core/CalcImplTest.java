@@ -147,4 +147,16 @@ public class CalcImplTest {
         calc.calculate("(-2 + (-8-8/2+12*(12-5*(-345+1))) - (12-12+22/2+(55/5))) * 9");
         Assert.assertEquals("186732", calc.getResult());
     }
+
+    @Test
+    public void generalTestNoValid() {
+        calc.calculate("(-2 + (-8-8/2+12*(12-5*(error))) - (12-12+22/2+(55/5))) * 9");
+        Assert.assertEquals("Error", calc.getResult());
+    }
+
+    @Test
+    public void generalTestNoValid2() {
+        calc.calculate("(-2 + (-8-8/2+12*(12-5*(4:2))) - (12-12+22/2+(55/5))) * 9");
+        Assert.assertEquals("Error", calc.getResult());
+    }
 }
