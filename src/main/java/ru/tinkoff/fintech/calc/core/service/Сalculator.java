@@ -1,6 +1,6 @@
-package ru.tinkoff.fintech.calc.core.impl;
+package ru.tinkoff.fintech.calc.core.service;
 
-import ru.tinkoff.fintech.calc.core.Regular;
+import ru.tinkoff.fintech.calc.core.parse.Regular;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -10,7 +10,7 @@ public class Сalculator {
     public static String calculate(String example) {
         example = example.replace(" ", "");
         if (valid(example)) {
-            Pattern pattern = Pattern.compile(Regular.operationsParentheses());
+            Pattern pattern = Pattern.compile(Regular.operationsParentheses);
             Matcher matcher = pattern.matcher(example);
             StringBuffer tempExam = new StringBuffer();
             while (matcher.find()) {
@@ -28,7 +28,7 @@ public class Сalculator {
     }
 
     private static Boolean valid(String exam) {
-        Pattern pattern = Pattern.compile(Regular.validSymbols());
+        Pattern pattern = Pattern.compile(Regular.validSymbols);
         Matcher m = pattern.matcher(exam);
         return m.matches();
     }

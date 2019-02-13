@@ -2,7 +2,7 @@ package ru.tinkoff.fintech.calc.core;
 
 import org.junit.Assert;
 import org.junit.Test;
-import ru.tinkoff.fintech.calc.core.impl.Сalculator;
+import ru.tinkoff.fintech.calc.core.service.Сalculator;
 
 public class СalculatorTest {
 

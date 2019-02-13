@@ -1,6 +1,6 @@
-package ru.tinkoff.fintech.calc.core.impl;
+package ru.tinkoff.fintech.calc.core.service;
 
-import ru.tinkoff.fintech.calc.core.Regular;
+import ru.tinkoff.fintech.calc.core.parse.Regular;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -9,8 +9,8 @@ public class Operation {
 
     public static String calculationExample(String exam) {
         exam = exam.replace(")", "").replace("(", "");
-        String result = findTwoOperandAndProcessing(exam, Pattern.compile(Regular.divAndMul()));
-        result = findTwoOperandAndProcessing(result, Pattern.compile(Regular.sumAndSub()));
+        String result = findTwoOperandAndProcessing(exam, Pattern.compile(Regular.divAndMul));
+        result = findTwoOperandAndProcessing(result, Pattern.compile(Regular.sumAndSub));
         return result;
     }
 
@@ -31,20 +31,20 @@ public class Operation {
     private static String processingTwoOperands(String tempExam) {
         Integer operand1 = null;
         Integer operand2 = null;
-        for (String s : tempExam.split(Regular.chooseOperation())) {
+        for (String s : tempExam.split(Regular.chooseOperation)) {
             if (operand1 == null && !s.equals("")) {
                 operand1 = Integer.valueOf(s);
             } else if (operand2 == null && !s.equals("")) {
                 operand2 = Integer.valueOf(s);
             }
         }
-        if (tempExam.matches(Regular.negationFirstOperand())) {
+        if (tempExam.matches(Regular.negationFirstOperand)) {
             operand1 *= (-1);
         }
-        if (tempExam.matches(Regular.negationSecondOperand())) {
+        if (tempExam.matches(Regular.negationSecondOperand)) {
             operand2 *= (-1);
         }
-        tempExam = tempExam.replaceFirst(Regular.firstOperand(), "");
+        tempExam = tempExam.replaceFirst(Regular.firstOperand, "");
         return chooseOperation(operand1, operand2, tempExam.charAt(0));
     }
 
