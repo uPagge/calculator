@@ -1,7 +1,10 @@
 package ru.tinkoff.fintech.calc.core.parse;
 
 import ru.tinkoff.fintech.calc.core.exce.NoValidExample;
-import ru.tinkoff.fintech.calc.core.service.OperationEnum;
+import ru.tinkoff.fintech.calc.core.service.Operation;
+import ru.tinkoff.fintech.calc.core.service.operation.Div;
+import ru.tinkoff.fintech.calc.core.service.operation.Mul;
+import ru.tinkoff.fintech.calc.core.service.operation.Sum;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -28,7 +31,7 @@ public class Parser {
         return null;
     }
 
-    public static OperationEnum parseOperation(String exampleTwoOperand) {
+    public static Operation parseOperation(String exampleTwoOperand) {
         Pattern pattern = Pattern.compile(Regular.operation);
         Matcher matcher = pattern.matcher(exampleTwoOperand);
         if (matcher.find()) {
@@ -37,13 +40,13 @@ public class Parser {
             if (matcher2.find()) {
                 switch (matcher2.group()) {
                     case "+":
-                        return OperationEnum.SUM;
+                        return new Sum();
                     case "-":
-                        return OperationEnum.SUM;
+                        return new Sum();
                     case "/":
-                        return OperationEnum.DIV;
+                        return new Div();
                     case "*":
-                        return OperationEnum.MUL;
+                        return new Mul();
                 }
             }
         }

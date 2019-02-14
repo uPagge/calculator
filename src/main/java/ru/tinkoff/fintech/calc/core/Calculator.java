@@ -4,9 +4,6 @@ import ru.tinkoff.fintech.calc.core.exce.NoValidExample;
 import ru.tinkoff.fintech.calc.core.parse.Parser;
 import ru.tinkoff.fintech.calc.core.parse.Regular;
 import ru.tinkoff.fintech.calc.core.service.Operation;
-import ru.tinkoff.fintech.calc.core.service.OperationEnum;
-
-import java.util.regex.Pattern;
 
 public class Calculator {
 
@@ -32,8 +29,8 @@ public class Calculator {
         while (twoOperandAndOperation != null) {
             Integer a = Parser.parseOperand(twoOperandAndOperation, Regular.firstOperand);
             Integer b = Parser.parseOperand(twoOperandAndOperation, Regular.seconOperand);
-            OperationEnum operationEnum = Parser.parseOperation(twoOperandAndOperation);
-            Integer resultOperation = Operation.chooseOperation(a, b, operationEnum);
+            Operation operation = Parser.parseOperation(twoOperandAndOperation);
+            Integer resultOperation = operation.chooseOperation(a, b);
             if (resultOperation > 0) {
                 example = example.replace(twoOperandAndOperation, "+" + String.valueOf(resultOperation));
             } else {

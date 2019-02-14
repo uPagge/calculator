@@ -3,11 +3,10 @@ package ru.tinkoff.fintech.calc.core.parse;
 import org.junit.Assert;
 import org.junit.Test;
 import ru.tinkoff.fintech.calc.core.exce.NoValidExample;
-import ru.tinkoff.fintech.calc.core.service.OperationEnum;
-
-import java.awt.image.Raster;
-
-import static org.junit.Assert.*;
+import ru.tinkoff.fintech.calc.core.service.Operation;
+import ru.tinkoff.fintech.calc.core.service.operation.Div;
+import ru.tinkoff.fintech.calc.core.service.operation.Mul;
+import ru.tinkoff.fintech.calc.core.service.operation.Sum;
 
 public class ParserTest {
 
@@ -30,10 +29,10 @@ public class ParserTest {
 
     @Test
     public void getEnumOperation() {
-        Assert.assertEquals(OperationEnum.DIV, Parser.parseOperation("12/12"));
-        Assert.assertEquals(OperationEnum.SUM, Parser.parseOperation("12-34"));
-        Assert.assertEquals(OperationEnum.MUL, Parser.parseOperation("12*34"));
-        Assert.assertEquals(OperationEnum.SUM, Parser.parseOperation("12+34"));
+        Assert.assertEquals(new Div(), Parser.parseOperation("12/12"));
+        Assert.assertEquals(new Sum(), Parser.parseOperation("12-34"));
+        Assert.assertEquals(new Mul(), Parser.parseOperation("12*34"));
+        Assert.assertEquals(new Sum(), Parser.parseOperation("12+34"));
     }
 
     @Test
