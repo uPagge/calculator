@@ -107,14 +107,34 @@ public class СalculatorTest {
 
     @Test
     public void complexCalculations() throws NoValidExample {
-        Assert.assertEquals("+186732", Calculator.calculationExample("(-2 + (-8-8/2+12*(12-5*(-345+1))) - (12-12+22/2+(55/5))) * 9"));
-        Assert.assertEquals("-108", Calculator.calculationExample("(-2 + (-8-8/2+12*(12-5*(4:2))) - (12-12+22/2+(55/5))) * 9"));
+        Assert.assertEquals("+169452", Calculator.calculationExample("(-2 + (-8-8/2+12*(12-5*(-345+1+2^5))) - (12-12+22/2+(55/5))) * 9"));
+        Assert.assertEquals("+972", Calculator.calculationExample("(-2 + (-8-8/2+12^(4:2)) - (12-12+22/2+(55/5))) * 9"));
 
     }
 
     @Test(expected = NoValidExample.class)
     public void complexCalculationsFailed() throws NoValidExample {
         Calculator.calculationExample("(-2 + (-8-8/2+12*(12-5*(error))) - (12-12+22/2+(55/5))) * 9");
+    }
+
+    @Test
+    public void power() throws NoValidExample {
+        Assert.assertEquals("+8", Calculator.calculationExample("2^3"));
+    }
+
+    @Test
+    public void power2() throws NoValidExample {
+        Assert.assertEquals("+1", Calculator.calculationExample("1^-3"));
+    }
+
+    @Test
+    public void power3() throws NoValidExample {
+        Assert.assertEquals("-8", Calculator.calculationExample("-2^3"));
+    }
+
+    @Test
+    public void power4() throws NoValidExample {
+        Assert.assertEquals("-1", Calculator.calculationExample("-1^-3"));
     }
 
 }

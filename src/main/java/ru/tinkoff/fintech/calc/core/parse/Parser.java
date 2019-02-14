@@ -4,6 +4,7 @@ import ru.tinkoff.fintech.calc.core.exce.NoValidExample;
 import ru.tinkoff.fintech.calc.core.service.Operation;
 import ru.tinkoff.fintech.calc.core.service.operation.Div;
 import ru.tinkoff.fintech.calc.core.service.operation.Mul;
+import ru.tinkoff.fintech.calc.core.service.operation.Power;
 import ru.tinkoff.fintech.calc.core.service.operation.Sum;
 
 import java.util.regex.Matcher;
@@ -47,6 +48,8 @@ public class Parser {
                         return new Div();
                     case "*":
                         return new Mul();
+                    case  "^":
+                        return new Power();
                 }
             }
         }

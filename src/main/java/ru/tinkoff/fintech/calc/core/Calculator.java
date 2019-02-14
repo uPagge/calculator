@@ -14,12 +14,14 @@ public class Calculator {
             exam = Parser.preProcessing(exam);
             String tempSave = Parser.parseInPrackets(exam);
             String temp = tempSave.replace(")", "").replace("(", "");
+            temp = calculateTwoOperands(temp, Regular.power);
             temp = calculateTwoOperands(temp, Regular.divAndMul);
             temp = calculateTwoOperands(temp, Regular.sumAndSub);
             exam = exam.replace(tempSave, temp);
         }
         String temp;
-        temp = calculateTwoOperands(exam, Regular.divAndMul);
+        temp = calculateTwoOperands(exam, Regular.power);
+        temp = calculateTwoOperands(temp, Regular.divAndMul);
         temp = calculateTwoOperands(temp, Regular.sumAndSub);
         return temp;
     }
