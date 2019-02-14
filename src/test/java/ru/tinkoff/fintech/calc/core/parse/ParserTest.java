@@ -3,8 +3,10 @@ package ru.tinkoff.fintech.calc.core.parse;
 import org.junit.Assert;
 import org.junit.Test;
 import ru.tinkoff.fintech.calc.core.exce.NoValidExample;
+import ru.tinkoff.fintech.calc.core.operations.Operation;
 import ru.tinkoff.fintech.calc.core.operations.impl.Div;
 import ru.tinkoff.fintech.calc.core.operations.impl.Mul;
+import ru.tinkoff.fintech.calc.core.operations.impl.Power;
 import ru.tinkoff.fintech.calc.core.operations.impl.Sum;
 
 public class ParserTest {
@@ -16,7 +18,7 @@ public class ParserTest {
 
     @Test
     public void validationSuccess() throws NoValidExample {
-        Parser.valid("1+(2*3)");
+        Parser.valid("1+(2*3^2)");
     }
 
     @Test
@@ -28,10 +30,16 @@ public class ParserTest {
 
     @Test
     public void getEnumOperation() {
-        Assert.assertEquals(new Div(), Parser.parseOperation("12/12"));
-        Assert.assertEquals(new Sum(), Parser.parseOperation("12-34"));
-        Assert.assertEquals(new Mul(), Parser.parseOperation("12*34"));
-        Assert.assertEquals(new Sum(), Parser.parseOperation("12+34"));
+        Operation operation = Parser.parseOperation("12/15");
+        Assert.assertTrue(operation instanceof Div);
+        operation = Parser.parseOperation("12-34");
+        Assert.assertTrue(operation instanceof Sum);
+        operation = Parser.parseOperation("12*34");
+        Assert.assertTrue(operation instanceof Mul);
+        operation = Parser.parseOperation("12+34");
+        Assert.assertTrue(operation instanceof Sum);
+        operation = Parser.parseOperation("12^34");
+        Assert.assertTrue(operation instanceof Power);
     }
 
     @Test
@@ -45,5 +53,7 @@ public class ParserTest {
         Assert.assertNull(Parser.findTwoOperand("12+12-3", Regular.divAndMul));
         Assert.assertEquals("12+12", Parser.findTwoOperand("12+12-3", Regular.sumAndSub));
         Assert.assertNull(Parser.findTwoOperand("12*12/3", Regular.sumAndSub));
+        Assert.assertEquals("12^2", Parser.findTwoOperand("2*12^2-3", Regular.power));
+        Assert.assertNull(Parser.findTwoOperand("12*12/3", Regular.power));
     }
 }
