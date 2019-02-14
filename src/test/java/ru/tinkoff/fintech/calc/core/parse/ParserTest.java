@@ -12,24 +12,24 @@ import static org.junit.Assert.*;
 public class ParserTest {
 
     @Test(expected = NoValidExample.class)
-    public void noValidTest() throws NoValidExample {
+    public void validationFailed() throws NoValidExample {
         Parser.valid("1/er2/3");
     }
 
     @Test
-    public void validTest() throws NoValidExample {
+    public void validationSuccess() throws NoValidExample {
         Parser.valid("1+(2*3)");
     }
 
     @Test
-    public void preProcessingTest() {
+    public void preProcessingSuccess() {
         Assert.assertEquals("12-45", Parser.preProcessing("12+- 45"));
         Assert.assertEquals("12/45", Parser.preProcessing("12:45"));
         Assert.assertEquals("12+45", Parser.preProcessing("12--45"));
     }
 
     @Test
-    public void parseOperationTest() {
+    public void getEnumOperation() {
         Assert.assertEquals(OperationEnum.DIV, Parser.parseOperation("12/12"));
         Assert.assertEquals(OperationEnum.SUM, Parser.parseOperation("12-34"));
         Assert.assertEquals(OperationEnum.MUL, Parser.parseOperation("12*34"));
@@ -37,12 +37,12 @@ public class ParserTest {
     }
 
     @Test
-    public void parseInPracketsTets() {
+    public void getExampleInPrackets() {
         Assert.assertEquals("(12+3)", Parser.parseInPrackets("12+(3*(12+3))"));
     }
 
     @Test
-    public void findTwoOperandTest() {
+    public void getTwoOperand() {
         Assert.assertEquals("+12*3", Parser.findTwoOperand("12+12*3", Regular.divAndMul));
         Assert.assertNull(Parser.findTwoOperand("12+12-3", Regular.divAndMul));
         Assert.assertEquals("12+12", Parser.findTwoOperand("12+12-3", Regular.sumAndSub));
