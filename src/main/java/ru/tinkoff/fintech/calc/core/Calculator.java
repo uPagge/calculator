@@ -3,7 +3,7 @@ package ru.tinkoff.fintech.calc.core;
 import ru.tinkoff.fintech.calc.core.exce.NoValidExample;
 import ru.tinkoff.fintech.calc.core.parse.Parser;
 import ru.tinkoff.fintech.calc.core.parse.Regular;
-import ru.tinkoff.fintech.calc.core.service.Operation;
+import ru.tinkoff.fintech.calc.core.operations.Operation;
 
 public class Calculator {
 
@@ -26,7 +26,7 @@ public class Calculator {
         return temp;
     }
 
-    private static String calculateTwoOperands(String example, String regularTwoOperands) throws NoValidExample {
+    private static String calculateTwoOperands(String example, String regularTwoOperands) {
         String twoOperandAndOperation = Parser.findTwoOperand(example, regularTwoOperands);
         while (twoOperandAndOperation != null) {
             Integer a = Parser.parseOperand(twoOperandAndOperation, Regular.firstOperand);

@@ -1,11 +1,11 @@
 package ru.tinkoff.fintech.calc.core.parse;
 
 import ru.tinkoff.fintech.calc.core.exce.NoValidExample;
-import ru.tinkoff.fintech.calc.core.service.Operation;
-import ru.tinkoff.fintech.calc.core.service.operation.Div;
-import ru.tinkoff.fintech.calc.core.service.operation.Mul;
-import ru.tinkoff.fintech.calc.core.service.operation.Power;
-import ru.tinkoff.fintech.calc.core.service.operation.Sum;
+import ru.tinkoff.fintech.calc.core.operations.Operation;
+import ru.tinkoff.fintech.calc.core.operations.impl.Div;
+import ru.tinkoff.fintech.calc.core.operations.impl.Mul;
+import ru.tinkoff.fintech.calc.core.operations.impl.Power;
+import ru.tinkoff.fintech.calc.core.operations.impl.Sum;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

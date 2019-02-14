@@ -1,6 +1,6 @@
-package ru.tinkoff.fintech.calc.core.service.operation;
+package ru.tinkoff.fintech.calc.core.operations.impl;
 
-import ru.tinkoff.fintech.calc.core.service.Operation;
+import ru.tinkoff.fintech.calc.core.operations.Operation;
 
 public class Sub implements Operation {
 

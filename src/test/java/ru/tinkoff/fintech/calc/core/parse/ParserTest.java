@@ -3,10 +3,9 @@ package ru.tinkoff.fintech.calc.core.parse;
 import org.junit.Assert;
 import org.junit.Test;
 import ru.tinkoff.fintech.calc.core.exce.NoValidExample;
-import ru.tinkoff.fintech.calc.core.service.Operation;
-import ru.tinkoff.fintech.calc.core.service.operation.Div;
-import ru.tinkoff.fintech.calc.core.service.operation.Mul;
-import ru.tinkoff.fintech.calc.core.service.operation.Sum;
+import ru.tinkoff.fintech.calc.core.operations.impl.Div;
+import ru.tinkoff.fintech.calc.core.operations.impl.Mul;
+import ru.tinkoff.fintech.calc.core.operations.impl.Sum;
 
 public class ParserTest {
 
