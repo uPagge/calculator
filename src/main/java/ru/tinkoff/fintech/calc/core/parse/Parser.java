@@ -1,7 +1,6 @@
 package ru.tinkoff.fintech.calc.core.parse;
 
 import ru.tinkoff.fintech.calc.core.exce.NoValidExample;
-import ru.tinkoff.fintech.calc.core.service.Operation;
 import ru.tinkoff.fintech.calc.core.service.OperationEnum;
 
 import java.util.regex.Matcher;
@@ -9,17 +8,10 @@ import java.util.regex.Pattern;
 
 public class Parser {
 
-    public static String parseInPrackets(String example) throws NoValidExample {
-        if (valid(example)) {
-            Pattern pattern = Pattern.compile(Regular.operationsParentheses);
-            Matcher matcher = pattern.matcher(example);
-            while (matcher.find()) {
-                return matcher.group(0);
-            }
-        } else {
-            throw new NoValidExample("Wrong example" + example);
-        }
-        return null;
+    public static String parseInPrackets(String example) {
+        Pattern pattern = Pattern.compile(Regular.operationsParentheses);
+        Matcher matcher = pattern.matcher(example);
+        return (matcher.find()) ? matcher.group() : null;
     }
 
     public static Integer parseOperand(String exampleTwoOperand, String regExp) {
@@ -27,7 +19,7 @@ public class Parser {
         Matcher matcher = pattern.matcher(exampleTwoOperand);
         if (matcher.find()) {
             String save = matcher.group();
-            Integer operand = Integer.valueOf(save.replaceAll("[-+/*]", ""));
+            Integer operand = Integer.valueOf(save.replaceAll(Regular.chooseOperation, ""));
             if (save.matches(Regular.negationOperand)) {
                 operand *= (-1);
             }
@@ -37,17 +29,13 @@ public class Parser {
     }
 
     public static OperationEnum parseOperation(String exampleTwoOperand) {
-        Pattern pattern = Pattern.compile("\\d+[-*/+]");
+        Pattern pattern = Pattern.compile(Regular.operation);
         Matcher matcher = pattern.matcher(exampleTwoOperand);
         if (matcher.find()) {
-            String test = matcher.group();
-            System.out.println(test);
             pattern = Pattern.compile(Regular.chooseOperation);
-            Matcher matcher2 = pattern.matcher(test);
+            Matcher matcher2 = pattern.matcher(matcher.group());
             if (matcher2.find()) {
-                String test2 = matcher2.group();
-                System.out.println(test2);
-                switch (test2) {
+                switch (matcher2.group()) {
                     case "+":
                         return OperationEnum.SUM;
                     case "-":
@@ -62,24 +50,27 @@ public class Parser {
         return null;
     }
 
-    public static String preprocessing(String example) {
-        return example.replace(" ", "").replace("--", "+").replace("++", "+").replace("-+", "-");
+    public static String preProcessing(String example) {
+        return example.replace(" ", "")
+                .replace("--", "+")
+                .replace("++", "+")
+                .replace("-+", "-")
+                .replace("+-", "-")
+                .replace(":", "/");
     }
 
-    private static Boolean valid(String exam) {
+    public static void valid(String exam) throws NoValidExample {
         Pattern pattern = Pattern.compile(Regular.validSymbols);
         Matcher m = pattern.matcher(exam);
-        return m.matches();
-    }
-
-    public static String findTwoOperand(String exam, Pattern pattern) {
-        Matcher m = pattern.matcher(exam);
-        if (m.find()) {
-            return m.group(0);
-        } else {
-            return null;
+        if (!m.matches()) {
+            throw new NoValidExample("Wrong example" + exam);
         }
     }
 
+    public static String findTwoOperand(String example, String regular) {
+        Pattern pattern = Pattern.compile(regular);
+        Matcher matcher = pattern.matcher(example);
+        return (matcher.find()) ? matcher.group() : null;
+    }
 
 }

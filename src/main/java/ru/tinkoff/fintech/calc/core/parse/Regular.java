@@ -18,4 +18,6 @@ public class Regular {
 
     public static String negationOperand = "^-\\d+";
 
+    public static String operation = "\\d+[-*/+]";
+
 }

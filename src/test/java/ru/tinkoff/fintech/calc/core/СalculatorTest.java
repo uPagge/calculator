@@ -3,9 +3,6 @@ package ru.tinkoff.fintech.calc.core;
 import org.junit.Assert;
 import org.junit.Test;
 import ru.tinkoff.fintech.calc.core.exce.NoValidExample;
-import ru.tinkoff.fintech.calc.core.service.Calculator;
-
-import java.util.concurrent.Callable;
 
 public class СalculatorTest {
 
@@ -126,8 +123,8 @@ public class СalculatorTest {
         Calculator.calculationExample("(-2 + (-8-8/2+12*(12-5*(error))) - (12-12+22/2+(55/5))) * 9");
     }
 
-    @Test(expected = NoValidExample.class)
-    public void generalTestNoValid2() throws NoValidExample {
-         Calculator.calculationExample("(-2 + (-8-8/2+12*(12-5*(4:2))) - (12-12+22/2+(55/5))) * 9");
+    @Test
+    public void generalTestNoValidAndValid() throws NoValidExample {
+         Assert.assertEquals("-108", Calculator.calculationExample("(-2 + (-8-8/2+12*(12-5*(4:2))) - (12-12+22/2+(55/5))) * 9"));
     }
 }
