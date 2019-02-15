@@ -35,7 +35,7 @@ public class Calculator {
             if (operation instanceof Subtraction) {
                 b *= (-1);
             }
-            Integer resultOperation = operation.operation(a,b);
+            Integer resultOperation = operation.performingOperation(a,b);
             if (resultOperation > 0) {
                 example = example.replace(twoOperandAndOperation, "+" + String.valueOf(resultOperation));
             } else {

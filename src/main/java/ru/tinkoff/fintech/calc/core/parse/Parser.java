@@ -10,16 +10,16 @@ import java.util.regex.Pattern;
 public class Parser {
 
     public static String parseInPrackets(String example) {
-        Matcher matcher = test(example, Regular.operationsParentheses);
+        Matcher matcher = createMatcher(example, Regular.operationsParentheses);
         return (matcher.find()) ? matcher.group() : null;
     }
 
-    private static Matcher test(String text, String regExp) {
+    private static Matcher createMatcher(String text, String regExp) {
         return Pattern.compile(regExp).matcher(text);
     }
 
     public static Integer parseOperand(String exampleTwoOperand, String regExp) {
-        Matcher matcher = test(exampleTwoOperand, regExp);
+        Matcher matcher = createMatcher(exampleTwoOperand, regExp);
         if (matcher.find()) {
             String save = matcher.group();
             Integer operand = Integer.valueOf(save.replaceAll(Regular.chooseOperation, ""));
@@ -32,9 +32,9 @@ public class Parser {
     }
 
     public static Operation parseOperation(String exampleTwoOperand) {
-        Matcher matcher = test(exampleTwoOperand, Regular.operation);
+        Matcher matcher = createMatcher(exampleTwoOperand, Regular.operation);
         if (matcher.find()) {
-            Matcher matcher2 = test(matcher.group(), Regular.chooseOperation);
+            Matcher matcher2 = createMatcher(matcher.group(), Regular.chooseOperation);
             if (matcher2.find()) {
                 switch (matcher2.group()) {
                     case "+":
