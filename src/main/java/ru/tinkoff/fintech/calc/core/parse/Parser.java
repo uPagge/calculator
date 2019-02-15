@@ -64,16 +64,14 @@ public class Parser {
     }
 
     public static void valid(String exam) throws NoValidExample {
-        Pattern pattern = Pattern.compile(Regular.validSymbols);
-        Matcher m = pattern.matcher(exam);
-        if (!m.matches()) {
+        Matcher matcher = createMatcher(exam, Regular.validSymbols);
+        if (!matcher.matches()) {
             throw new NoValidExample("Wrong example" + exam);
         }
     }
 
     public static String findOperand(String example, String regular) {
-        Pattern pattern = Pattern.compile(regular);
-        Matcher matcher = pattern.matcher(example);
+        Matcher matcher = createMatcher(example, regular);
         return (matcher.find()) ? matcher.group() : null;
     }
 
