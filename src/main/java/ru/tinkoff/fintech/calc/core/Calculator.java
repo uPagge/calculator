@@ -20,14 +20,14 @@ public class Calculator {
         return calculationPriority(example);
     }
 
-    private static String calculationPriority(String example) throws WrongNumberOfParameters {
+    private static String calculationPriority(String example) {
         example = calculateOneOperands(example, Regular.factorial);
         example = calculateTwoOperands(example, Regular.power);
         example = calculateTwoOperands(example, Regular.divAndMul);
         return calculateTwoOperands(example, Regular.sumAndSub);
     }
 
-    private static String calculateTwoOperands(String example, String regularTwoOperands) throws WrongNumberOfParameters {
+    private static String calculateTwoOperands(String example, String regularTwoOperands) {
         String twoOperandAndOperation = Parser.findOperand(example, regularTwoOperands);
         while (twoOperandAndOperation != null) {
             Operation operation = Parser.parseOperation(twoOperandAndOperation);
@@ -40,7 +40,7 @@ public class Calculator {
         return example;
     }
 
-    private static String calculateOneOperands(String example, String regularOneOperand) throws WrongNumberOfParameters {
+    private static String calculateOneOperands(String example, String regularOneOperand) {
         String oneOperandAndOperation = Parser.findOperand(example, regularOneOperand);
         while (oneOperandAndOperation != null) {
             Operation operation = Parser.parseOperation(oneOperandAndOperation);

@@ -1,6 +1,6 @@
 package ru.tinkoff.fintech.calc.core.exception;
 
-public class WrongNumberOfParameters extends Exception {
+public class WrongNumberOfParameters extends RuntimeException {
 
     public WrongNumberOfParameters() {
 
