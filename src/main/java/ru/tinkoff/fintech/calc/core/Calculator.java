@@ -21,18 +21,18 @@ public class Calculator {
     }
 
     private static String calculationPriority(String example) {
-        example = calculateOneOperands(example, Regular.factorial);
-        example = calculateTwoOperands(example, Regular.power);
-        example = calculateTwoOperands(example, Regular.divAndMul);
-        return calculateTwoOperands(example, Regular.sumAndSub);
+        example = calculateOneOperands(example, Regular.FACTORIAL);
+        example = calculateTwoOperands(example, Regular.POWER);
+        example = calculateTwoOperands(example, Regular.DIV_AND_MUL);
+        return calculateTwoOperands(example, Regular.SUM_AND_SUB);
     }
 
     private static String calculateTwoOperands(String example, String regularTwoOperands) {
         String twoOperandAndOperation = Parser.findOperand(example, regularTwoOperands);
         while (twoOperandAndOperation != null) {
             Operation operation = Parser.parseOperation(twoOperandAndOperation);
-            Integer operand1 = Parser.parseOperand(twoOperandAndOperation, Regular.firstOperand);
-            Integer operand2 = Parser.parseOperand(twoOperandAndOperation, Regular.seconOperand);
+            Integer operand1 = Parser.parseOperand(twoOperandAndOperation, Regular.FIRST_OPERAND);
+            Integer operand2 = Parser.parseOperand(twoOperandAndOperation, Regular.SECON_OPERAND);
             Integer resultOperation = operation.performingOperation(operand1, operand2);
             example = example.replace(twoOperandAndOperation, resultFormatting(resultOperation));
             twoOperandAndOperation = Parser.findOperand(example, regularTwoOperands);
@@ -44,7 +44,7 @@ public class Calculator {
         String oneOperandAndOperation = Parser.findOperand(example, regularOneOperand);
         while (oneOperandAndOperation != null) {
             Operation operation = Parser.parseOperation(oneOperandAndOperation);
-            Integer operand = Parser.parseOperand(oneOperandAndOperation, Regular.firstOperand);
+            Integer operand = Parser.parseOperand(oneOperandAndOperation, Regular.FIRST_OPERAND);
             Integer resultOperation = operation.performingOperation(operand);
             example = example.replace(oneOperandAndOperation, resultFormatting(resultOperation));
             oneOperandAndOperation = Parser.findOperand(example, regularOneOperand);
