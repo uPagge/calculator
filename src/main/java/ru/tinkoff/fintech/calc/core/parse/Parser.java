@@ -46,6 +46,8 @@ public class Parser {
                         return new Multiplication();
                     case  "^":
                         return new Exponentiation();
+                    case  "!":
+                        return new Factorial();
                 }
             }
         }
@@ -69,7 +71,7 @@ public class Parser {
         }
     }
 
-    public static String findTwoOperand(String example, String regular) {
+    public static String findOperand(String example, String regular) {
         Pattern pattern = Pattern.compile(regular);
         Matcher matcher = pattern.matcher(example);
         return (matcher.find()) ? matcher.group() : null;

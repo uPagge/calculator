@@ -1,14 +1,14 @@
 package ru.tinkoff.fintech.calc.core;
 
 import ru.tinkoff.fintech.calc.core.exception.NoValidExample;
+import ru.tinkoff.fintech.calc.core.exception.WrongNumberOfParameters;
 import ru.tinkoff.fintech.calc.core.operations.Operation;
-import ru.tinkoff.fintech.calc.core.operations.Subtraction;
 import ru.tinkoff.fintech.calc.core.parse.Parser;
 import ru.tinkoff.fintech.calc.core.parse.Regular;
 
 public class Calculator {
 
-    public static String calculationExample(String example) throws NoValidExample {
+    public static String calculationExample(String example) throws NoValidExample, WrongNumberOfParameters {
         example = Parser.preProcessing(example);
         Parser.valid(example);
         while (Parser.parseInPrackets(example) != null) {
@@ -20,30 +20,40 @@ public class Calculator {
         return calculationPriority(example);
     }
 
-    private static String calculationPriority(String example) {
+    private static String calculationPriority(String example) throws WrongNumberOfParameters {
+        example = calculateOneOperands(example, Regular.factorial);
         example = calculateTwoOperands(example, Regular.power);
         example = calculateTwoOperands(example, Regular.divAndMul);
         return calculateTwoOperands(example, Regular.sumAndSub);
     }
 
-    private static String calculateTwoOperands(String example, String regularTwoOperands) {
-        String twoOperandAndOperation = Parser.findTwoOperand(example, regularTwoOperands);
+    private static String calculateTwoOperands(String example, String regularTwoOperands) throws WrongNumberOfParameters {
+        String twoOperandAndOperation = Parser.findOperand(example, regularTwoOperands);
         while (twoOperandAndOperation != null) {
             Operation operation = Parser.parseOperation(twoOperandAndOperation);
-            Integer a = Parser.parseOperand(twoOperandAndOperation, Regular.firstOperand);
-            Integer b = Parser.parseOperand(twoOperandAndOperation, Regular.seconOperand);
-            if (operation instanceof Subtraction) {
-                b *= (-1);
-            }
-            Integer resultOperation = operation.performingOperation(a,b);
-            if (resultOperation > 0) {
-                example = example.replace(twoOperandAndOperation, "+" + String.valueOf(resultOperation));
-            } else {
-                example = example.replace(twoOperandAndOperation, String.valueOf(resultOperation));
-            }
-            twoOperandAndOperation = Parser.findTwoOperand(example, regularTwoOperands);
+            Integer operand1 = Parser.parseOperand(twoOperandAndOperation, Regular.firstOperand);
+            Integer operand2 = Parser.parseOperand(twoOperandAndOperation, Regular.seconOperand);
+            Integer resultOperation = operation.performingOperation(operand1, operand2);
+            example = example.replace(twoOperandAndOperation, resultFormatting(resultOperation));
+            twoOperandAndOperation = Parser.findOperand(example, regularTwoOperands);
         }
         return example;
+    }
+
+    private static String calculateOneOperands(String example, String regularOneOperand) throws WrongNumberOfParameters {
+        String oneOperandAndOperation = Parser.findOperand(example, regularOneOperand);
+        while (oneOperandAndOperation != null) {
+            Operation operation = Parser.parseOperation(oneOperandAndOperation);
+            Integer operand = Parser.parseOperand(oneOperandAndOperation, Regular.firstOperand);
+            Integer resultOperation = operation.performingOperation(operand);
+            example = example.replace(oneOperandAndOperation, resultFormatting(resultOperation));
+            oneOperandAndOperation = Parser.findOperand(example, regularOneOperand);
+        }
+        return example;
+    }
+
+    private static String resultFormatting(Integer result) {
+        return (result > 0) ? String.valueOf("+" + result) : String.valueOf(result);
     }
 
 }

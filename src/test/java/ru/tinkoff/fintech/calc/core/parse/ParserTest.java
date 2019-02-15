@@ -49,11 +49,11 @@ public class ParserTest {
 
     @Test
     public void getTwoOperand() {
-        Assert.assertEquals("+12*3", Parser.findTwoOperand("12+12*3", Regular.divAndMul));
-        Assert.assertNull(Parser.findTwoOperand("12+12-3", Regular.divAndMul));
-        Assert.assertEquals("12+12", Parser.findTwoOperand("12+12-3", Regular.sumAndSub));
-        Assert.assertNull(Parser.findTwoOperand("12*12/3", Regular.sumAndSub));
-        Assert.assertEquals("12^2", Parser.findTwoOperand("2*12^2-3", Regular.power));
-        Assert.assertNull(Parser.findTwoOperand("12*12/3", Regular.power));
+        Assert.assertEquals("+12*3", Parser.findOperand("12+12*3", Regular.divAndMul));
+        Assert.assertNull(Parser.findOperand("12+12-3", Regular.divAndMul));
+        Assert.assertEquals("12+12", Parser.findOperand("12+12-3", Regular.sumAndSub));
+        Assert.assertNull(Parser.findOperand("12*12/3", Regular.sumAndSub));
+        Assert.assertEquals("12^2", Parser.findOperand("2*12^2-3", Regular.power));
+        Assert.assertNull(Parser.findOperand("12*12/3", Regular.power));
     }
 }
