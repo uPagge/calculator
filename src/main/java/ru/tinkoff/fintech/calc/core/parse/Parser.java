@@ -63,7 +63,7 @@ public class Parser {
                 .replace(":", "/");
     }
 
-    public static void valid(String exam) throws NoValidExample {
+    public static void valid(String exam) {
         Matcher matcher = createMatcher(exam, Regular.validSymbols);
         if (!matcher.matches()) {
             throw new NoValidExample("Wrong example" + exam);

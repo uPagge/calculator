@@ -6,7 +6,4 @@ public class WrongNumberOfParameters extends RuntimeException {
 
     }
 
-    public WrongNumberOfParameters(String message) {
-        super(message);
-    }
 }

@@ -3,21 +3,17 @@ package ru.tinkoff.fintech.calc.core.parse;
 import org.junit.Assert;
 import org.junit.Test;
 import ru.tinkoff.fintech.calc.core.exception.NoValidExample;
-import ru.tinkoff.fintech.calc.core.operations.Operation;
-import ru.tinkoff.fintech.calc.core.operations.Division;
-import ru.tinkoff.fintech.calc.core.operations.Multiplication;
-import ru.tinkoff.fintech.calc.core.operations.Exponentiation;
-import ru.tinkoff.fintech.calc.core.operations.Sum;
+import ru.tinkoff.fintech.calc.core.operations.*;
 
 public class ParserTest {
 
     @Test(expected = NoValidExample.class)
-    public void validationFailed() throws NoValidExample {
+    public void validationFailed() {
         Parser.valid("1/er2/3");
     }
 
     @Test
-    public void validationSuccess() throws NoValidExample {
+    public void validationSuccess() {
         Parser.valid("1+(2*3^2)");
     }
 
@@ -33,7 +29,7 @@ public class ParserTest {
         Operation operation = Parser.parseOperation("12/15");
         Assert.assertTrue(operation instanceof Division);
         operation = Parser.parseOperation("12-34");
-        Assert.assertTrue(operation instanceof Sum);
+        Assert.assertTrue(operation instanceof Subtraction);
         operation = Parser.parseOperation("12*34");
         Assert.assertTrue(operation instanceof Multiplication);
         operation = Parser.parseOperation("12+34");

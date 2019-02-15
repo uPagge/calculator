@@ -3,163 +3,162 @@ package ru.tinkoff.fintech.calc.core;
 import org.junit.Assert;
 import org.junit.Test;
 import ru.tinkoff.fintech.calc.core.exception.NoValidExample;
-import ru.tinkoff.fintech.calc.core.exception.WrongNumberOfParameters;
 
 public class СalculatorTest {
 
 
     @Test
-    public void multiplyPositiveByNegative() throws NoValidExample {
+    public void multiplyPositiveByNegative() {
         Assert.assertEquals("-50", Calculator.calculationExample("5*-10"));
     }
 
     @Test
-    public void multiplyNegativeByNegative() throws NoValidExample {
+    public void multiplyNegativeByNegative() {
         Assert.assertEquals("+50", Calculator.calculationExample("-5*-10"));
     }
 
     @Test
-    public void multiplyNegativeByPositive() throws NoValidExample {
+    public void multiplyNegativeByPositive() {
         Assert.assertEquals("-50", Calculator.calculationExample("-5*10"));
     }
 
     @Test
-    public void multiplyPositiveByPositive() throws NoValidExample {
+    public void multiplyPositiveByPositive() {
         Assert.assertEquals("+50", Calculator.calculationExample("5*10"));
     }
 
     @Test
-    public void divisionPositiveByPositive() throws NoValidExample {
+    public void divisionPositiveByPositive() {
         Assert.assertEquals("+2", Calculator.calculationExample("10/5"));
     }
 
     @Test
-    public void divisionPositiveByNegative() throws NoValidExample {
+    public void divisionPositiveByNegative() {
         Assert.assertEquals("-2", Calculator.calculationExample("10/-5"));
     }
 
     @Test
-    public void divisionNegativeByNegative() throws NoValidExample {
+    public void divisionNegativeByNegative() {
         Assert.assertEquals("+5", Calculator.calculationExample("-10/-2"));
     }
 
     @Test
-    public void divisionNegativeByPositive() throws NoValidExample {
+    public void divisionNegativeByPositive() {
         Assert.assertEquals("-2", Calculator.calculationExample("-10/5"));
     }
 
     @Test
-    public void summationNegativeByPositive() throws NoValidExample {
+    public void summationNegativeByPositive() {
         Assert.assertEquals("-5", Calculator.calculationExample("-10+5"));
     }
 
     @Test
-    public void summationNegativeByNegative() throws NoValidExample {
+    public void summationNegativeByNegative() {
         Assert.assertEquals("-15", Calculator.calculationExample("-10+-5"));
     }
 
     @Test
-    public void summationPositiveByPositive() throws NoValidExample {
+    public void summationPositiveByPositive() {
         Assert.assertEquals("+15", Calculator.calculationExample("10+5"));
     }
 
     @Test
-    public void summationPositiveByNegative() throws NoValidExample {
+    public void summationPositiveByNegative() {
         Assert.assertEquals("+5", Calculator.calculationExample("10+-5"));
     }
 
     @Test
-    public void subtractionPositiveByPositive() throws NoValidExample {
+    public void subtractionPositiveByPositive() {
         Assert.assertEquals("+5", Calculator.calculationExample("10-5"));
     }
 
     @Test
-    public void subtractionPositiveByNegativeNegative() throws NoValidExample {
+    public void subtractionPositiveByNegativeNegative() {
         Assert.assertEquals("+15", Calculator.calculationExample("10--5"));
     }
 
     @Test
-    public void subtractionNegativeByNegative() throws NoValidExample {
+    public void subtractionNegativeByNegative() {
         Assert.assertEquals("-15", Calculator.calculationExample("-10-5"));
     }
 
     @Test
-    public void subtractionNegativeByPositiveNegative() throws NoValidExample {
+    public void subtractionNegativeByPositiveNegative() {
         Assert.assertEquals("-15", Calculator.calculationExample("-10+-5"));
     }
 
 
     @Test
-    public void calculateExampleNoParentheses() throws NoValidExample {
+    public void calculateExampleNoParentheses() {
         Assert.assertEquals("+1450", Calculator.calculationExample("2 + 8 - 6! * 2"));
     }
 
     @Test
-    public void calculateExampleParenthesesOne() throws NoValidExample {
+    public void calculateExampleParenthesesOne() {
         Assert.assertEquals("+90", Calculator.calculationExample("(2 + 8) * 9"));
     }
 
     @Test
-    public void calculateExampleParenthesesOneNestedOne() throws NoValidExample {
+    public void calculateExampleParenthesesOneNestedOne() {
         Assert.assertEquals("+1098", Calculator.calculationExample("(2 + (3+1+1)!) * 9"));
         Assert.assertEquals("+108", Calculator.calculationExample("(2 + (8+4/2)) * 9"));
     }
 
     @Test
-    public void calculateExampleParenthesesOneNestedTwo() throws NoValidExample {
+    public void calculateExampleParenthesesOneNestedTwo() {
         Assert.assertEquals("+9", Calculator.calculationExample("(2 + (8+4/2) - (12-12+22/2)) * 9"));
         Assert.assertEquals("-270", Calculator.calculationExample("(-2 + (-8-9) - (12-12+22/2)) * 9"));
     }
 
     @Test
-    public void complexCalculations() throws NoValidExample {
+    public void complexCalculations() {
         Assert.assertEquals("-4012308", Calculator.calculationExample("(-2 + (-8-8/2+12*(12-5*(-345+1+3!^5))) - (12-12+22/2+(55/5))) * 9"));
         Assert.assertEquals("+972", Calculator.calculationExample("(-2 + (-8-8/2+12^(4:2)) - (12-12+22/2+(55/5))) * 9"));
 
     }
 
     @Test(expected = NoValidExample.class)
-    public void complexCalculationsFailed() throws NoValidExample {
+    public void complexCalculationsFailed() {
         Calculator.calculationExample("(-2 + (-8-8/2+12*(12-5*(error))) - (12-12+22/2+(55/5))) * 9");
     }
 
     @Test
-    public void power() throws NoValidExample {
+    public void power() {
         Assert.assertEquals("+8", Calculator.calculationExample("2^3"));
     }
 
     @Test
-    public void power2() throws NoValidExample {
+    public void power2() {
         Assert.assertEquals("+1", Calculator.calculationExample("1^-3"));
     }
 
     @Test
-    public void power3() throws NoValidExample {
+    public void power3() {
         Assert.assertEquals("-8", Calculator.calculationExample("-2^3"));
     }
 
     @Test
-    public void power4() throws NoValidExample {
+    public void power4() {
         Assert.assertEquals("-1", Calculator.calculationExample("-1^-3"));
     }
 
     @Test
-    public void factorial() throws NoValidExample {
+    public void factorial() {
         Assert.assertEquals("+6", Calculator.calculationExample("3!"));
     }
 
     @Test
-    public void factorial2() throws NoValidExample {
+    public void factorial2() {
         Assert.assertEquals("+6", Calculator.calculationExample("-3!"));
     }
 
     @Test
-    public void factorial3() throws NoValidExample {
+    public void factorial3() {
         Assert.assertEquals("+12", Calculator.calculationExample("2*3!"));
     }
 
     @Test
-    public void factorial4() throws NoValidExample {
+    public void factorial4() {
         Assert.assertEquals("+12", Calculator.calculationExample("2*-3!"));
     }
 
