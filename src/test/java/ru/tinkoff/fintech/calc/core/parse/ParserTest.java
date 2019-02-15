@@ -2,11 +2,11 @@ package ru.tinkoff.fintech.calc.core.parse;
 
 import org.junit.Assert;
 import org.junit.Test;
-import ru.tinkoff.fintech.calc.core.exce.NoValidExample;
+import ru.tinkoff.fintech.calc.core.exception.NoValidExample;
 import ru.tinkoff.fintech.calc.core.operations.Operation;
-import ru.tinkoff.fintech.calc.core.operations.impl.Div;
-import ru.tinkoff.fintech.calc.core.operations.impl.Mul;
-import ru.tinkoff.fintech.calc.core.operations.impl.Power;
+import ru.tinkoff.fintech.calc.core.operations.impl.Division;
+import ru.tinkoff.fintech.calc.core.operations.impl.Multiplication;
+import ru.tinkoff.fintech.calc.core.operations.impl.Exponentiation;
 import ru.tinkoff.fintech.calc.core.operations.impl.Sum;
 
 public class ParserTest {
@@ -31,15 +31,15 @@ public class ParserTest {
     @Test
     public void getEnumOperation() {
         Operation operation = Parser.parseOperation("12/15");
-        Assert.assertTrue(operation instanceof Div);
+        Assert.assertTrue(operation instanceof Division);
         operation = Parser.parseOperation("12-34");
         Assert.assertTrue(operation instanceof Sum);
         operation = Parser.parseOperation("12*34");
-        Assert.assertTrue(operation instanceof Mul);
+        Assert.assertTrue(operation instanceof Multiplication);
         operation = Parser.parseOperation("12+34");
         Assert.assertTrue(operation instanceof Sum);
         operation = Parser.parseOperation("12^34");
-        Assert.assertTrue(operation instanceof Power);
+        Assert.assertTrue(operation instanceof Exponentiation);
     }
 
     @Test

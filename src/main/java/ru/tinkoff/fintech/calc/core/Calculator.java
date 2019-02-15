@@ -1,38 +1,41 @@
 package ru.tinkoff.fintech.calc.core;
 
-import ru.tinkoff.fintech.calc.core.exce.NoValidExample;
+import ru.tinkoff.fintech.calc.core.exception.NoValidExample;
+import ru.tinkoff.fintech.calc.core.operations.Operation;
+import ru.tinkoff.fintech.calc.core.operations.impl.Subtraction;
 import ru.tinkoff.fintech.calc.core.parse.Parser;
 import ru.tinkoff.fintech.calc.core.parse.Regular;
-import ru.tinkoff.fintech.calc.core.operations.Operation;
 
 public class Calculator {
 
-    public static String calculationExample(String exam) throws NoValidExample {
-        exam = Parser.preProcessing(exam);
-        Parser.valid(exam);
-        while (Parser.parseInPrackets(exam) != null) {
-            exam = Parser.preProcessing(exam);
-            String tempSave = Parser.parseInPrackets(exam);
-            String temp = tempSave.replace(")", "").replace("(", "");
-            temp = calculateTwoOperands(temp, Regular.power);
-            temp = calculateTwoOperands(temp, Regular.divAndMul);
-            temp = calculateTwoOperands(temp, Regular.sumAndSub);
-            exam = exam.replace(tempSave, temp);
+    public static String calculationExample(String example) throws NoValidExample {
+        example = Parser.preProcessing(example);
+        Parser.valid(example);
+        while (Parser.parseInPrackets(example) != null) {
+            example = Parser.preProcessing(example);
+            String tempSave = Parser.parseInPrackets(example);
+            String resultInPrackets = calculationPriority(tempSave.replace(")", "").replace("(", ""));
+            example = example.replace(tempSave, resultInPrackets);
         }
-        String temp;
-        temp = calculateTwoOperands(exam, Regular.power);
-        temp = calculateTwoOperands(temp, Regular.divAndMul);
-        temp = calculateTwoOperands(temp, Regular.sumAndSub);
-        return temp;
+        return calculationPriority(example);
+    }
+
+    private static String calculationPriority(String example) {
+        example = calculateTwoOperands(example, Regular.power);
+        example = calculateTwoOperands(example, Regular.divAndMul);
+        return calculateTwoOperands(example, Regular.sumAndSub);
     }
 
     private static String calculateTwoOperands(String example, String regularTwoOperands) {
         String twoOperandAndOperation = Parser.findTwoOperand(example, regularTwoOperands);
         while (twoOperandAndOperation != null) {
+            Operation operation = Parser.parseOperation(twoOperandAndOperation);
             Integer a = Parser.parseOperand(twoOperandAndOperation, Regular.firstOperand);
             Integer b = Parser.parseOperand(twoOperandAndOperation, Regular.seconOperand);
-            Operation operation = Parser.parseOperation(twoOperandAndOperation);
-            Integer resultOperation = operation.chooseOperation(a, b);
+            if (operation instanceof Subtraction) {
+                b *= (-1);
+            }
+            Integer resultOperation = operation.operation(a,b);
             if (resultOperation > 0) {
                 example = example.replace(twoOperandAndOperation, "+" + String.valueOf(resultOperation));
             } else {

@@ -1,11 +1,8 @@
 package ru.tinkoff.fintech.calc.core.parse;
 
-import ru.tinkoff.fintech.calc.core.exce.NoValidExample;
+import ru.tinkoff.fintech.calc.core.exception.NoValidExample;
 import ru.tinkoff.fintech.calc.core.operations.Operation;
-import ru.tinkoff.fintech.calc.core.operations.impl.Div;
-import ru.tinkoff.fintech.calc.core.operations.impl.Mul;
-import ru.tinkoff.fintech.calc.core.operations.impl.Power;
-import ru.tinkoff.fintech.calc.core.operations.impl.Sum;
+import ru.tinkoff.fintech.calc.core.operations.impl.*;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,14 +10,16 @@ import java.util.regex.Pattern;
 public class Parser {
 
     public static String parseInPrackets(String example) {
-        Pattern pattern = Pattern.compile(Regular.operationsParentheses);
-        Matcher matcher = pattern.matcher(example);
+        Matcher matcher = test(example, Regular.operationsParentheses);
         return (matcher.find()) ? matcher.group() : null;
     }
 
+    private static Matcher test(String text, String regExp) {
+        return Pattern.compile(regExp).matcher(text);
+    }
+
     public static Integer parseOperand(String exampleTwoOperand, String regExp) {
-        Pattern pattern = Pattern.compile(regExp);
-        Matcher matcher = pattern.matcher(exampleTwoOperand);
+        Matcher matcher = test(exampleTwoOperand, regExp);
         if (matcher.find()) {
             String save = matcher.group();
             Integer operand = Integer.valueOf(save.replaceAll(Regular.chooseOperation, ""));
@@ -33,23 +32,21 @@ public class Parser {
     }
 
     public static Operation parseOperation(String exampleTwoOperand) {
-        Pattern pattern = Pattern.compile(Regular.operation);
-        Matcher matcher = pattern.matcher(exampleTwoOperand);
+        Matcher matcher = test(exampleTwoOperand, Regular.operation);
         if (matcher.find()) {
-            pattern = Pattern.compile(Regular.chooseOperation);
-            Matcher matcher2 = pattern.matcher(matcher.group());
+            Matcher matcher2 = test(matcher.group(), Regular.chooseOperation);
             if (matcher2.find()) {
                 switch (matcher2.group()) {
                     case "+":
                         return new Sum();
                     case "-":
-                        return new Sum();
+                        return new Subtraction();
                     case "/":
-                        return new Div();
+                        return new Division();
                     case "*":
-                        return new Mul();
+                        return new Multiplication();
                     case  "^":
-                        return new Power();
+                        return new Exponentiation();
                 }
             }
         }

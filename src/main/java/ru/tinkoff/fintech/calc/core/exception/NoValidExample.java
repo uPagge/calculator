@@ -1,4 +1,4 @@
-package ru.tinkoff.fintech.calc.core.exce;
+package ru.tinkoff.fintech.calc.core.exception;
 
 public class NoValidExample extends Exception {
 
