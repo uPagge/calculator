@@ -2,7 +2,7 @@ package ru.tinkoff.fintech.calc.core;
 
 import ru.tinkoff.fintech.calc.core.exception.NoValidExample;
 import ru.tinkoff.fintech.calc.core.operations.Operation;
-import ru.tinkoff.fintech.calc.core.operations.impl.Subtraction;
+import ru.tinkoff.fintech.calc.core.operations.Subtraction;
 import ru.tinkoff.fintech.calc.core.parse.Parser;
 import ru.tinkoff.fintech.calc.core.parse.Regular;
 

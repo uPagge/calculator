@@ -4,10 +4,10 @@ import org.junit.Assert;
 import org.junit.Test;
 import ru.tinkoff.fintech.calc.core.exception.NoValidExample;
 import ru.tinkoff.fintech.calc.core.operations.Operation;
-import ru.tinkoff.fintech.calc.core.operations.impl.Division;
-import ru.tinkoff.fintech.calc.core.operations.impl.Multiplication;
-import ru.tinkoff.fintech.calc.core.operations.impl.Exponentiation;
-import ru.tinkoff.fintech.calc.core.operations.impl.Sum;
+import ru.tinkoff.fintech.calc.core.operations.Division;
+import ru.tinkoff.fintech.calc.core.operations.Multiplication;
+import ru.tinkoff.fintech.calc.core.operations.Exponentiation;
+import ru.tinkoff.fintech.calc.core.operations.Sum;
 
 public class ParserTest {
 

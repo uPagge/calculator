@@ -1,4 +1,4 @@
-package ru.tinkoff.fintech.calc.core.operations.impl;
+package ru.tinkoff.fintech.calc.core.operations;
 
 import ru.tinkoff.fintech.calc.core.operations.Operation;
 

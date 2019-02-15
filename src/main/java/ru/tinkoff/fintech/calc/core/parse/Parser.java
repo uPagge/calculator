@@ -1,8 +1,7 @@
 package ru.tinkoff.fintech.calc.core.parse;
 
 import ru.tinkoff.fintech.calc.core.exception.NoValidExample;
-import ru.tinkoff.fintech.calc.core.operations.Operation;
-import ru.tinkoff.fintech.calc.core.operations.impl.*;
+import ru.tinkoff.fintech.calc.core.operations.*;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
