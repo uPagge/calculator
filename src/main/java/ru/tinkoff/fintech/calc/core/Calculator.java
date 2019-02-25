@@ -1,14 +1,16 @@
 package ru.tinkoff.fintech.calc.core;
 
-import ru.tinkoff.fintech.calc.core.exception.NoValidExample;
-import ru.tinkoff.fintech.calc.core.exception.WrongNumberOfParameters;
 import ru.tinkoff.fintech.calc.core.operations.Operation;
 import ru.tinkoff.fintech.calc.core.parse.Parser;
 import ru.tinkoff.fintech.calc.core.parse.Regular;
 
 public class Calculator {
 
-    public static String calculationExample(String example) throws NoValidExample, WrongNumberOfParameters {
+    private Calculator() {
+        throw new IllegalStateException("Utility Class");
+    }
+
+    public static String calculationExample(String example) {
         example = Parser.preProcessing(example);
         Parser.valid(example);
         while (Parser.parseInPrackets(example) != null) {

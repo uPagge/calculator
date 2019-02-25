@@ -8,6 +8,10 @@ import java.util.regex.Pattern;
 
 public class Parser {
 
+    private Parser() {
+        throw new IllegalStateException();
+    }
+
     public static String parseInPrackets(String example) {
         Matcher matcher = createMatcher(example, Regular.OPERATIONS_PARENTHESES);
         return (matcher.find()) ? matcher.group() : null;
@@ -44,10 +48,12 @@ public class Parser {
                         return new Division();
                     case "*":
                         return new Multiplication();
-                    case  "^":
+                    case "^":
                         return new Exponentiation();
-                    case  "!":
+                    case "!":
                         return new Factorial();
+                    default:
+                        return null;
                 }
             }
         }

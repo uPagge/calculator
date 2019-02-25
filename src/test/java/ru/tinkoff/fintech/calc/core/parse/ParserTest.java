@@ -13,11 +13,6 @@ public class ParserTest {
     }
 
     @Test
-    public void validationSuccess() {
-        Parser.valid("1+(2*3^2)");
-    }
-
-    @Test
     public void preProcessingSuccess() {
         Assert.assertEquals("12-45", Parser.preProcessing("12+- 45"));
         Assert.assertEquals("12/45", Parser.preProcessing("12:45"));

@@ -2,6 +2,10 @@ package ru.tinkoff.fintech.calc.core.parse;
 
 public class Regular {
 
+    private Regular() {
+        throw new IllegalStateException();
+    }
+
     public static final String FACTORIAL = "(-\\d+|[+]\\d+|\\d+)!";
 
     public static final String POWER = "(-\\d+|[+]\\d+|\\d+)[\\^](-\\d+|[+]\\d+|\\d+)";
